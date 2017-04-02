@@ -1,12 +1,11 @@
+package Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created by kamil on 29.03.2017.
@@ -16,10 +15,12 @@ public class Game extends JFrame{
 
     private CardLayout cardLayout = new CardLayout();
     private JPanel cardJPanel = new JPanel();
+
     private Properties gameProperties = null;
     private BaloonManager baloonManager = null;
-    private MainPanel mp = null;
 
+    //private MainPanel mp = null;
+    private GamePanel[] panelReferences;
 
     class GamePanel extends JPanel{
         void setScene(PanelName scene){
@@ -33,17 +34,23 @@ public class Game extends JFrame{
         super("BaloonGame");
 
         loadProperties();
+
         add(cardJPanel);
         cardJPanel.setLayout(cardLayout);
 
+        panelReferences = new GamePanel[5];
 
-        mp = new MainPanel(this);
-            cardJPanel.add(new StartScreenPanel(this), PanelName.START_SCREEN.toString());
-        cardJPanel.add(new NewGamePanel(this, mp), PanelName.NEW_GAME.toString());
-        cardJPanel.add(new SettingsPanel(this), PanelName.SETTINGS.toString());
-        cardJPanel.add(new ScoresPanel(this), PanelName.SCORES.toString());
+        panelReferences[PanelName.START_SCREEN.ordinal()] = new StartScreenPanel(this);
+        panelReferences[PanelName.MAIN.ordinal()] = new MainPanel(this);
+        panelReferences[PanelName.NEW_GAME.ordinal()] =
+                new NewGamePanel(this, (MainPanel)panelReferences[PanelName.MAIN.ordinal()]);
+        panelReferences[PanelName.SCORES.ordinal()] = new ScoresPanel(this);
+        panelReferences[PanelName.SETTINGS.ordinal()] = new SettingsPanel(this);
 
-        cardJPanel.add(mp, PanelName.MAIN.toString());
+        for(PanelName pn : PanelName.values())
+            cardJPanel.add(panelReferences[pn.ordinal()], pn.toString());
+
+       // mp = (MainPanel) panelReferences[PanelName.MAIN.ordinal()];
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setSize(new Dimension(Integer.parseInt(gameProperties.getProperty("width")), Integer.parseInt(gameProperties.getProperty("height"))));
@@ -107,8 +114,6 @@ public class Game extends JFrame{
 
     public static void main(String[] args){
 
-        /*ExecutorService exec = Executors.newCachedThreadPool();
-        exec.execute(new TestFileThread());*/
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -117,12 +122,6 @@ public class Game extends JFrame{
             }
         });
         System.out.println("sdgdfg");
-
-       /* Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                System.out.println("In shutdown hook");
-            }
-        }, "Shutdown-thread"));*/
 
     }
 }

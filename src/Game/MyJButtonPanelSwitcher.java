@@ -1,4 +1,5 @@
-import javax.swing.*;
+package Game;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

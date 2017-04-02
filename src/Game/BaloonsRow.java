@@ -1,8 +1,9 @@
-import java.awt.*;
+package Game;
+
 import java.util.ArrayList;
 
 /**
  * Created by kamil on 02.04.2017.
  */
-public class BaloonRow extends ArrayList<Baloon> {
+public class BaloonsRow extends ArrayList<Baloon> {
 }

@@ -1,3 +1,5 @@
+package Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,18 +15,12 @@ public class BaloonDrawer extends JPanel {
         System.out.println(b);
     }
 
-    public BaloonDrawer(){
-        columns = 0;
+    public BaloonDrawer(){columns = 0;
     }
 
-    public BaloonDrawer(int rows){
+    public BaloonDrawer(int columns){
         super();
-        this.columns = rows;
-        //add(new Baloon(BaloonType.BLUE, new Point(0,0), false));
-    }
-
-    public void setRows(int rows) {
-        this.columns = rows;
+        this.columns = columns;
     }
 
     public void setColumns(int columns) {
@@ -35,10 +31,15 @@ public class BaloonDrawer extends JPanel {
         return columns;
     }
 
+    public void addSpacing(){
+        for(Component c : getComponents())
+            ((Baloon)c).addSpace();
+    }
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //g.setColor(Color.BLACK);
-        //g.fillRect(0,0,getWidth(),getHeight());
+        g.setColor(Color.BLACK);
+        g.drawRect(0,0,getWidth()/columns * columns -1,getHeight()-1);
         //g.setColor(Color.WHITE);
         //g.drawString("BALOONDRAWER",getWidth()/2,getHeight()/2);
         for(Component c : getComponents())

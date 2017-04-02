@@ -1,3 +1,5 @@
+package Game;
+
 /**
  * Created by kamil on 02.04.2017.
  */
@@ -20,12 +22,14 @@ public class BaloonManager {
     public void load(String fileName){
         BaloonFileReader bfl = new BaloonFileReader(fileName);
         bfl.load();
+
         mapRows = bfl.getMapRows();
         columns = bfl.getColumns();
         allRows = bfl.getAllRows();
         visibleRows = bfl.getVisibleRows();
         showed = bfl.getVisibleBaloons();
         hidden = bfl.getHiddenBaloons();
+        resetBaloonDrawer();
         System.out.println("LOAD " + fileName);
     }
 
@@ -36,11 +40,11 @@ public class BaloonManager {
     public BaloonDrawer prepareBaloonDrawer(){
         baloonDrawer.setColumns(columns);
         if(showed != null)
-        for(BaloonRow br : showed)
+        for(BaloonsRow br : showed)
             for(Baloon b : br)
                 baloonDrawer.add(b);
         if(showed != null)
-        for(BaloonRow br : showed)
+        for(BaloonsRow br : showed)
             for(Baloon b : br)
                 System.out.println(b);
         return baloonDrawer;

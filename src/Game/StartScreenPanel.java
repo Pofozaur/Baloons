@@ -1,3 +1,5 @@
+package Game;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -10,7 +12,6 @@ import java.awt.event.ActionListener;
 public class StartScreenPanel extends Game.GamePanel   {
 
         private JButton newGameButton, settingsButton, scoresButton, exitButton;
-        //private ImageJPanel imageJPanel = new ImageJPanel("LOGO.PNG");
         private JLabel panelName = new JLabel("Baloons");
 
     StartScreenPanel(Game gameReference){
@@ -20,7 +21,6 @@ public class StartScreenPanel extends Game.GamePanel   {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(new Insets(40, 60, 40, 60)));
 
-        //imageJPanel.setVisible(true);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridLayout(5,1, 10, 10));
 
@@ -39,14 +39,13 @@ public class StartScreenPanel extends Game.GamePanel   {
 
         panelName.setFont(new Font("Tahoma", Font.BOLD, 30));
         panelName.setHorizontalAlignment(SwingConstants.CENTER);
+
         buttonsPanel.add(panelName);
         buttonsPanel.add(newGameButton);
-        //add(Box.createRigidArea(new Dimension(0, 5)));
         buttonsPanel.add(settingsButton);
-        //add(Box.createRigidArea(new Dimension(0, 5)));
         buttonsPanel.add(scoresButton);
         buttonsPanel.add(exitButton);
-        //add(imageJPanel, BorderLayout.NORTH);
+
         add(buttonsPanel, BorderLayout.CENTER);
     }
 }

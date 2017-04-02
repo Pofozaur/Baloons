@@ -1,4 +1,5 @@
-import jdk.internal.util.xml.impl.Pair;
+
+package Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,6 @@ public class Baloon extends JComponent {
             case PINK:      return Color.pink;
             case RED:       return Color.red;
             case YELLOW:    return Color.yellow;
-
             case BOMB:      return Color.black;
             case TIME:      return Color.white;
             case NEXT:      return Color.darkGray;
@@ -40,10 +40,14 @@ public class Baloon extends JComponent {
         this.baloonType = baloonType;
         this.position = null;
     }
+
+    public void addSpace(){
+        this.position.y = this.position.y + 1;
+    }
+
     public void setPosition(Point position) {
         this.position = position;
     }
-
     public void setDiameter(float diameter) {
         this.diameter = diameter;
     }
@@ -57,7 +61,7 @@ public class Baloon extends JComponent {
     public void paint(Graphics g) {
         super.paint(g);
         Dimension parentSize = getParent().getSize();
-        float width = parentSize.width/((BaloonDrawer)getParent()).getColumns();
+        float width = (parentSize.width-1)/((BaloonDrawer)getParent()).getColumns() ;
         int offsetInt = (offset) ? 1 : 0;
         float xPos = width * position.x + width/2*offsetInt;
         float yPos = width * position.y;
@@ -66,13 +70,6 @@ public class Baloon extends JComponent {
         //ga.draw(circle);
         ga.setPaint(translateColor(baloonType));
         ga.fill(circle);
-        System.out.println("BOO");
-    }
-
-    public static void main(String[] args){
-        Frame frame = new Frame();
-        frame.setVisible(true);
-        frame.setSize(new Dimension(200,200));
-        frame.add(new Baloon(BaloonType.BLUE, new Point(20,20), false));
+        //System.out.println("BOO");
     }
 }

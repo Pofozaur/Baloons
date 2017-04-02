@@ -1,8 +1,8 @@
+package Game;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by kamil on 29.03.2017.
@@ -10,15 +10,20 @@ import java.awt.event.ActionListener;
 public class NewGamePanel extends Game.GamePanel {
 
     private JLabel panelName = new JLabel("New Game");
+
     private JRadioButton
-        easyButton = new JRadioButton("Easy: "),
-        normalButton = new JRadioButton("Normal: "),
-        hardButton = new JRadioButton("Hard: ");
+        easyButton = new JRadioButton("Easy"),
+        normalButton = new JRadioButton("Normal"),
+        hardButton = new JRadioButton("Hard");
+
+    ButtonGroup buttonsGroup = null;
     private JTextField playerNameTextField = new JTextField(20);
-    private MainPanel mp = null;
+
+    private MainPanel mainPanelReference = null;
+
     public NewGamePanel(Game gameReference, MainPanel mainPanelReference){
         gameReference.super();
-        mp = mainPanelReference;
+        this.mainPanelReference = mainPanelReference;
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(new Insets(40, 60, 40, 60)));
 
@@ -35,7 +40,7 @@ public class NewGamePanel extends Game.GamePanel {
         playerNamePanel.add(playerNameTextField);
         gridPanel.add(playerNamePanel);
 
-        ButtonGroup buttonsGroup = new ButtonGroup();
+        buttonsGroup = new ButtonGroup();
         buttonsGroup.add(easyButton);
         buttonsGroup.add(normalButton);
         buttonsGroup.add(hardButton);
@@ -51,16 +56,23 @@ public class NewGamePanel extends Game.GamePanel {
         JPanel controlButtonsPanel = new JPanel();
 
         controlButtonsPanel.add(new MyJButtonPanelSwitcher("BACK", this, PanelName.START_SCREEN));
-        MyJButton startGameButton = new MyJButtonGameInitializer("START", this, PanelName.MAIN, mp);
+        MyJButton startGameButton = new MyJButtonGameInitializer("START", this, PanelName.MAIN, mainPanelReference);
         controlButtonsPanel.add(startGameButton);
-        //controlButtonsPanel.add(new MyJButtonPanelSwitcher("START", this, PanelName.MAIN));
-        //mp.setGameSettings(new NewGameSettings("level1.level", Difficulty.EASY, playerNameTextField.getText()));
         gridPanel.add(controlButtonsPanel);
         add(gridPanel, BorderLayout.CENTER);
     }
 
     public NewGameSettings getNGS(){
-        return new NewGameSettings("level1.level", Difficulty.EASY, playerNameTextField.getText());
+        return new NewGameSettings("level1.level", getDifficulty(), playerNameTextField.getText());
+    }
+
+    private Difficulty getDifficulty(){
+        if(easyButton.isSelected())
+            return Difficulty.EASY;
+        else if(normalButton.isSelected())
+            return Difficulty.NORMAL;
+        else
+            return Difficulty.HARD;
     }
 
 }

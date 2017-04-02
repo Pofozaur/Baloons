@@ -1,3 +1,5 @@
+package Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +11,7 @@ public class MyJButton extends JButton {
 
     MyJButton(String name){
         super(name);
-        setBackground(new Color(59, 89, 182));
+        setBackground(new Color(128, 128, 128));
         setForeground(Color.WHITE);
         setFocusPainted(false);
         setFont(new Font("Tahoma", Font.BOLD, 12));

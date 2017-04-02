@@ -1,3 +1,5 @@
+package Game;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -5,7 +7,6 @@ import java.awt.event.ActionListener;
  * Created by kamil on 02.04.2017.
  */
 public class MyJButtonGameInitializer extends MyJButton{
-
 
     private Game.GamePanel callBack;
     private PanelName switchTo;
@@ -19,7 +20,6 @@ public class MyJButtonGameInitializer extends MyJButton{
             @Override
             public void actionPerformed(ActionEvent e) {
                 callBack.setScene(switchTo);
-
                 mp.setGameSettings(((NewGamePanel)callBack).getNGS());
             }
         });

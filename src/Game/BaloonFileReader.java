@@ -1,6 +1,7 @@
+package Game;
+
 import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Scanner;
  */
 public class BaloonFileReader {
 
-    private BaloonContainer bc = null;
+
     private String fileName;
     private int visibleRows;
     private int allRows;
@@ -58,7 +59,7 @@ public class BaloonFileReader {
         visibleBaloons = new BaloonsList();
         hiddenBaloons = new BaloonsList();
         for(int i = 0; i < visibleRows; i++){
-            BaloonRow br = new BaloonRow();
+            BaloonsRow br = new BaloonsRow();
             if(i%2 == 0) {
                 for (int j = 0; j < columns; j++){
                     br.add(new Baloon(BaloonType.values()[scanner.nextInt()], new Point(j,i), false));
@@ -74,7 +75,7 @@ public class BaloonFileReader {
 
 
             for(int i = 0; i < allRows-visibleRows; i++){
-                BaloonRow br = new BaloonRow();
+                BaloonsRow br = new BaloonsRow();
                 if(i%2 == 1) {
                     for (int j = 0; j < columns; j++){
                         br.add(new Baloon(BaloonType.values()[scanner.nextInt()], new Point(j,(-1)*(i+1)), true));
@@ -102,11 +103,11 @@ public class BaloonFileReader {
         BaloonFileReader bfr = new BaloonFileReader("level1.level");
         bfr.load();
 
-        for(BaloonRow be : bfr.visibleBaloons)
+        for(BaloonsRow be : bfr.visibleBaloons)
             for(Baloon b : be)
                 System.out.println(b);
 
-        for(BaloonRow be : bfr.hiddenBaloons)
+        for(BaloonsRow be : bfr.hiddenBaloons)
             for(Baloon b : be)
                 System.out.println(b);
     }
